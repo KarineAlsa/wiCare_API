@@ -1,58 +1,23 @@
 export class Company {
 
-    public name:string;
-    public address:string;
-    public createdAt:string;
-    public representative:string;
-    public type:string;
+    public foundation_date:string;
+    public context:string
     public description:string;
-    public cellphone:string;
-    public rfc:string;
-    public email:string;
-    public password:string;
-    public nameRepresentative:string;
-    public positionRepresentative:string;
-    public cellphoneRepresentative:string;
-    public addressRepresentative:string;
-    public emailRepresentative:string;
-    public passwordRepresentative:string;
+    public RFC:string;
     public id?:number
 
     constructor(
-        name:string,
-        address:string,
-        createdAt:string,
-        representative:string,
-        type:string,
+        
+        foundation_date:string,
+        context:string,
         description:string,
-        cellphone:string,
-        rfc:string,
-        email:string,
-        password:string,
-        nameRepresentative:string,
-        positionRepresentative:string,
-        cellphoneRepresentative:string,
-        addressRepresentative:string,
-        emailRepresentative:string,
-        passwordRepresentative:string,
+        RFC:string,
         id?:number
     ) {
-        this.name = name;
-        this.createdAt = createdAt;
-        this.address = address;
-        this.representative = representative;
-        this.type = type;
+        this.foundation_date = foundation_date;
+        this.context = context
         this.description = description;
-        this.cellphone = cellphone;
-        this.rfc = rfc;
-        this.email = email;
-        this.password = password;
-        this.nameRepresentative = nameRepresentative;
-        this.positionRepresentative = positionRepresentative;
-        this.cellphoneRepresentative = cellphoneRepresentative;
-        this.addressRepresentative = addressRepresentative;
-        this.emailRepresentative = emailRepresentative;
-        this.passwordRepresentative = passwordRepresentative;
+        this.RFC = RFC;
         this.id = id;
     }
 
