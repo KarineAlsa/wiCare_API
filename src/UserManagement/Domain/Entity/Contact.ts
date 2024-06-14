@@ -1,11 +1,11 @@
-export class Association {
+export class Contact {
 
     public name:string;
     public age:number;
     public cellphone:string;
     public address:string;
     public genre:string;
-    public user_id:string;
+    public user_id?:string;
     public id?:number
 
     constructor(
