@@ -9,7 +9,7 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    echo "The current build port is ${env.HOST}"
+                    echo "The build port is ${env.HOST}"
                     docker.build(DOCKER_IMAGE)
                     
                 }
