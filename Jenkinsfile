@@ -7,6 +7,7 @@ pipeline {
         DATABASE_NAME_MYSQL = "${env.DATABASE_NAME_MYSQL}"
         DATABASE_PASSWORD_MYSQL = "${env.DATABASE_PASSWORD_MYSQL}"
         DATABASE_USER_MYSQL = "${env.DATABASE_USER_MYSQL}"
+        SECRET = "${env.SECRET}"
     }
 
     stages {
@@ -54,6 +55,7 @@ pipeline {
                 script {
                     docker.image(DOCKER_IMAGE).run('-d -p 3000:3000 ' +
                             "-e HOST=${HOST} " +
+                            "-e SECRET=${SECRET} " +
                             "-e DATABASE_NAME_MYSQL=${DATABASE_NAME_MYSQL} " +
                             "-e DATABASE_PASSWORD_MYSQL=${DATABASE_PASSWORD_MYSQL} " +
                             "-e DATABASE_USER_MYSQL=${DATABASE_USER_MYSQL}")
