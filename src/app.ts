@@ -13,7 +13,7 @@ server.use('/volunteer', volunteerRouter);
 server.use('/association', associationRouter);
 
 
-server.listen(process.env.PORT, () => {
+server.listen(3000, () => {
     console.log(`Server listening on http://localhost:${server_port}/`);
 });
 

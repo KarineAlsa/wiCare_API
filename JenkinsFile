@@ -1,0 +1,56 @@
+pipeline {
+    agent any
+
+    environment {
+        DOCKER_IMAGE = 'wicare'
+    }
+
+    stages {
+        stage('Build') {
+            steps {
+                script {
+                    echo "The current build number is ${env.HOST}"
+                    docker.build(DOCKER_IMAGE)
+                    
+                }
+            }
+        }
+        stage('Install') {
+            steps {
+                script {
+                    docker.image(DOCKER_IMAGE).inside('-u root') {
+                        
+                        sh 'npm install --unsafe-perm'
+                    }
+                }
+            }
+        }
+        stage('Stop and remove Docker container') {
+            steps {
+                script {
+                    def PORT = 3000
+                    def CONTAINER_ID = sh(
+                        script: "docker ps -q --filter 'expose=${PORT}/tcp'",
+                        returnStdout: true
+                    ).trim()
+                    
+                    if (CONTAINER_ID) {
+                        echo "Stopping container using port $PORT..."
+                        sh "docker stop $CONTAINER_ID"
+                        echo "Removing container using port $PORT..."
+                        sh "docker rm $CONTAINER_ID"
+                    } else {
+                        echo "No container found using port $PORT."
+                    }
+                }
+            }
+        }
+        stage('Deploy') {
+            steps {
+                script {
+                    docker.image(DOCKER_IMAGE).run('-d -p 3000:3000')
+                }
+            }
+        }
+    }
+}
