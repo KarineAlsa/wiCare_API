@@ -3,6 +3,10 @@ pipeline {
 
     environment {
         DOCKER_IMAGE = 'wicare'
+        HOST = "${env.HOST}"
+        DATABASE_NAME_MYSQL = "${env.DATABASE_NAME_MYSQL}"
+        DATABASE_PASSWORD_MYSQL = "${env.DATABASE_PASSWORD_MYSQL}"
+        DATABASE_USER_MYSQL = "${env.DATABASE_USER_MYSQL}"
     }
 
     stages {
