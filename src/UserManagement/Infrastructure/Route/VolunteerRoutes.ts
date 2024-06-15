@@ -5,7 +5,7 @@ const volunteerRouter = express.Router();
 
 volunteerRouter.post("/",registerVolunteerController.run.bind(registerVolunteerController));
 volunteerRouter.get("/", (req, res) => {
-    res.send(`Hello World ${process.env.HOST}`);
+    res.send("Hello World");
 });
 
 export default volunteerRouter;
