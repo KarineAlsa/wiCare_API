@@ -13,7 +13,7 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    echo "The build port is ${env.HOST}"
+                    echo "The build  is ${env.HOST}"
                     docker.build(DOCKER_IMAGE)
                     
                 }
