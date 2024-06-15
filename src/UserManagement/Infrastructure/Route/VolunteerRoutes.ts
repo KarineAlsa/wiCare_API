@@ -5,8 +5,7 @@ const volunteerRouter = express.Router();
 dotenv.config()
 volunteerRouter.post("/",registerVolunteerController.run.bind(registerVolunteerController));
 volunteerRouter.get("/", (req, res) => {
-    res.send("Hello World ${process.env.HOST}");
+    res.send(`Hello World ${process.env.HOST}`);
 });
-
 
 export default volunteerRouter;
