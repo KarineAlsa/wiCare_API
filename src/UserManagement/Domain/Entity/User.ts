@@ -4,7 +4,7 @@ export class User {
     public email:string;
     public password:string;
     public role: string
-    public contact:Contact;
+    public contact?:Contact;
     public id?:number
 
     constructor(

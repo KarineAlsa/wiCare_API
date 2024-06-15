@@ -1,12 +1,19 @@
 import RegisterVolunteerUseCase from "../Application/UseCase/RegisterVolunteerUseCase";
+import RegisterAssociationUseCase from "../Application/UseCase/RegisterAssociationUseCase";
 
-import UserMySQLRepository from "./Repository/VolunteerRepositoryMySQL"
+import VolunteerMySQLRepository from "./Repository/VolunteerRepositoryMySQL"
+import AssociationMySQLRepository from "./Repository/AssociationRepositoryMySQL"
 
 import RegisterVolunteerController from './Controller/RegisterVolunteerController'
+import RegisterAssociationController from "./Controller/RegisterAssociationController";
 
-export const MySqlUserRepository = new UserMySQLRepository();
-export const currentRepository =  MySqlUserRepository
+export const MySqlVolunteerRepository = new VolunteerMySQLRepository();
+export const VolunteerRepository =  MySqlVolunteerRepository
+export const MySqlAssociationRepository = new AssociationMySQLRepository();
+export const AssociationRepository =  MySqlAssociationRepository
 
-export const registerCase = new RegisterVolunteerUseCase(currentRepository);
+export const registerVolunteerCase = new RegisterVolunteerUseCase(VolunteerRepository);
+export const registerAssociationCase = new RegisterAssociationUseCase(AssociationRepository);
 
-export const registerController = new RegisterVolunteerController(registerCase);
+export const registerVolunteerController = new RegisterVolunteerController(registerVolunteerCase);
+export const registerAssociationController = new RegisterAssociationController(registerAssociationCase);

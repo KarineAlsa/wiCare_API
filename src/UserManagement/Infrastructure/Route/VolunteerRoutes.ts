@@ -1,10 +1,7 @@
 import  express  from "express";
-import {   registerController } from "../Dependencies";
+import {   registerVolunteerController } from "../Dependencies";
 const volunteerRouter = express.Router();
 
-
-volunteerRouter.post("/",registerController.run.bind(registerController));
-
-
+volunteerRouter.post("/",registerVolunteerController.run.bind(registerVolunteerController));
 
 export default volunteerRouter;

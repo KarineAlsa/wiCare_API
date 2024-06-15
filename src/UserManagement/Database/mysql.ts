@@ -13,12 +13,11 @@ const config = {
 
 export const connection_pool = mysql.createPool(config);
 
-export default async function query(query_sentence: string, params: any[]) {
+export default async function query(query_sentence: string, params: any[], connection_pool: any) {
   try {
-    const current_connection = await connection_pool.getConnection();
+    const current_connection = connection_pool;
     console.log("Conexión a la base de datos exitosa.");
     const result = await current_connection.execute(query_sentence, params);
-    current_connection.release();
     return result;
   } catch (error) {
     console.error("Ha ocurrido un error con tu peticion:" + error);

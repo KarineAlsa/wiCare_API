@@ -3,12 +3,14 @@ import dotenv from 'dotenv'
 import path from 'path';
 import { exec } from 'child_process';
 import volunteerRouter from "./UserManagement/Infrastructure/Route/VolunteerRoutes";
+import associationRouter from "./UserManagement/Infrastructure/Route/AssociationRoutes";
 
 dotenv.config()
 const server = express();
 const server_port =process.env.PORT;
 server.use(express.json());
 server.use('/volunteer', volunteerRouter);
+server.use('/association', associationRouter);
 
 
 server.listen(process.env.PORT, () => {

@@ -8,15 +8,15 @@ export default class RegisterVolunteerController {
 
     async run(request:Request,response:Response) {
         //La fecha de nacimiento tiene que ir en formato YYYY-MM-DD
-        const { email, name, age,cellphone,address,genre, password, curp,occupation} = request.body;
+        const { email, name, age,cellphone,address,genre, password, curp,occupation, postal} = request.body;
         
-        if (!email || !name || !age || !password || !cellphone || !address || !genre || !curp || !occupation) {
+        if (!email || !name || !age || !password || !cellphone || !address || !genre || !curp || !occupation || !postal) {
             return response.status(400).json({
                 message: "Debe completar todos los campos.",
                 success: false
             });
         }
-        if (email.trim() === "" || name.trim() === "" || cellphone.trim() === "" || password.trim() === "" || address.trim() === "" || genre.trim() === "" || curp.trim() === "" || occupation.trim() === "") {
+        if (postal.trim() ===""|| email.trim() === "" || name.trim() === "" || cellphone.trim() === "" || password.trim() === "" || address.trim() === "" || genre.trim() === "" || curp.trim() === "" || occupation.trim() === "") {
             return response.status(400).json({
                 message: "Los campos no pueden estar vacíos.",
                 success: false
@@ -36,7 +36,8 @@ export default class RegisterVolunteerController {
                     genre:genre
                 },
                 curp:curp,
-                occupation:occupation
+                occupation:occupation,
+                postal:postal
 
             });
             if (user) {

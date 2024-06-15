@@ -7,13 +7,14 @@ export default class RegisterUserUseCase {
 
     constructor(readonly repository:VolunteerInterface) {}
 
-    async run( { email, password, role, contact,curp, occupation}: {
+    async run( { email, password, role, contact,curp, occupation, postal}: {
         email:string,
         password:string,
         role:string,
         contact:Contact
         curp:string,
-        occupation:string
+        occupation:string,
+        postal:string
       } ):Promise<User|any> {
         try {
 
@@ -23,7 +24,7 @@ export default class RegisterUserUseCase {
                 role,
                 contact
             );
-            let volunteer = new Volunteer(curp,occupation,contact);
+            let volunteer = new Volunteer(curp,occupation,contact, postal);
 
             return await this.repository.registerVolunteer(user,volunteer);
         }catch(error) {
