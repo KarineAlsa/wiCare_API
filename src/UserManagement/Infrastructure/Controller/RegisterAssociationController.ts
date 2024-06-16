@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import  RegisterUseCase  from "../../Application/UseCase/RegisterAssociationUseCase";
+import { CryptService } from "../Dependencies";
 
 export default class RegisterAssociationController {
 
@@ -53,7 +54,7 @@ export default class RegisterAssociationController {
             
             let user = await this.useCase.run({
                 name: name,
-                email: email,
+                email: CryptService.generateCrypt(email),
                 password: password,
                 role: "association",
                 manager: {

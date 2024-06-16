@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import  RegisterUseCase  from "../../Application/UseCase/RegisterVolunteerUseCase";
+import { CryptService } from "../Dependencies";
 
 
 export default class RegisterVolunteerController {
@@ -25,17 +26,17 @@ export default class RegisterVolunteerController {
         try {
             
             let user = await this.useCase.run({
-                email: email,
+                email: CryptService.generateCrypt(email),
                 password: password,
                 role: "volunteer",
                 contact: {
-                    name: name,
+                    name: CryptService.generateCrypt(name),
                     age: age,
-                    cellphone: cellphone,
-                    address: address,
+                    cellphone: CryptService.generateCrypt(cellphone),
+                    address: CryptService.generateCrypt(address),
                     genre:genre
                 },
-                curp:curp,
+                curp:CryptService.generateCrypt(curp),
                 occupation:occupation,
                 postal:postal
 

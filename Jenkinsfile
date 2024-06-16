@@ -14,7 +14,6 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    echo "The build  is ${env.HOST}"
                     docker.build(DOCKER_IMAGE)
                     
                 }

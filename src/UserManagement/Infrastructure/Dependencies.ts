@@ -7,7 +7,11 @@ import AssociationMySQLRepository from "./Repository/AssociationRepositoryMySQL"
 import UserMySQLRepository from "./Repository/UserMySQLRepository"
 
 import {JWTS} from "./Service/JWT"
+import {Crypt} from "./Service/EncryptService"
+
 export const JWT = new JWTS();
+export const CryptService = new Crypt();
+
 import RegisterVolunteerController from './Controller/RegisterVolunteerController'
 import RegisterAssociationController from "./Controller/RegisterAssociationController";
 import LoginController from "./Controller/LoginController";
