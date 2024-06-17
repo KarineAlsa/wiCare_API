@@ -26,17 +26,17 @@ export default class RegisterVolunteerController {
         try {
             
             let user = await this.useCase.run({
-                email: CryptService.generateCrypt(email),
+                email: email,
                 password: password,
                 role: "volunteer",
                 contact: {
-                    name: CryptService.generateCrypt(name),
+                    name: name,
                     age: age,
-                    cellphone: CryptService.generateCrypt(cellphone),
-                    address: CryptService.generateCrypt(address),
+                    cellphone: cellphone,
+                    address: address,
                     genre:genre
                 },
-                curp:CryptService.generateCrypt(curp),
+                curp:curp,
                 occupation:occupation,
                 postal:postal
 
