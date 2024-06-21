@@ -54,7 +54,7 @@ export default class RegisterAssociationController {
             
             let user = await this.useCase.run({
                 name: name,
-                email: CryptService.generateCrypt(email),
+                email: email,
                 password: password,
                 role: "association",
                 manager: {

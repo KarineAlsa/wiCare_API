@@ -20,7 +20,8 @@
     "jsonwebtoken": "^9.0.2",
     "mysql-migrations": "^1.0.7",
     "mysql2": "^3.9.2",
-    "ts-node": "^10.9.2"
+    "ts-node": "^10.9.2",
+    "@types/bcrypt": "^5.0.2"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
