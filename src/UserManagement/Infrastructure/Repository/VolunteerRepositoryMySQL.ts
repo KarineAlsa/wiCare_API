@@ -6,6 +6,37 @@ import { connection_pool } from "../../Database/mysql";
 import { Volunteer } from "../../Domain/Entity/Volunteer";
 
 export default class UserMysqlRepository implements VolunteerInterface {
+  async getProfileDataVolunteer(id: number): Promise<any> {
+    const sql = "SELECT * FROM User u JOIN Contact c ON u.id = c.user_id JOIN Volunteer v ON c.id = v.contact_id WHERE u.id = ?";
+    const params = [id];
+    
+    let connection;
+    try {
+      connection = await connection_pool.getConnection();
+      const [result]: any = await query(sql, params, connection);
+      console.log(result)
+      if (result && result.length > 0) {
+        return {
+          id: result[0].id,
+          email: result[0].email,
+          role: result[0].role,
+          name: result[0].name,
+          cellphone: result[0].cellphone,
+          genre: result[0].genre,
+          occupation: result[0].occupation,
+        };
+      }
+      return false;
+    }
+    catch (error) {
+      console.error("Error al obtener datos del voluntario:", error);
+      return false;
+    } finally {
+      if (connection) {
+        connection.release();
+      }
+    }
+  }
   async registerVolunteer(user: User, volunteer: Volunteer): Promise<any> {
     const sqlUser = "INSERT INTO User (email, password, role) VALUES (?, ?, ?)";
     const sqlContact = "INSERT INTO Contact (name, age, cellphone, address, genre, user_id) VALUES (?, ?, ?, ?, ?, ?)";

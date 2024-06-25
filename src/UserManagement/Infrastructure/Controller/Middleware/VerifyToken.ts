@@ -26,7 +26,7 @@ export async function VerifyToken(req: Request, res: Response, next: NextFunctio
             const decodedToken = jwt.verify(token, process.env.SECRET) as { [key: string]: any };
            
             const userId = decodedToken.id; 
-            req.params.id = userId;
+            req.params.idUser = userId;
             
             next();
         } catch (error) {

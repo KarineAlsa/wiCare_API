@@ -3,5 +3,5 @@ import { Volunteer } from "../Entity/Volunteer";
 
 export default interface VolunteerInterface{
     registerVolunteer(user:User, volunteer:Volunteer):Promise<User|any>;
-    
+    getProfileDataVolunteer(id:number):Promise<Volunteer|any>;
 }

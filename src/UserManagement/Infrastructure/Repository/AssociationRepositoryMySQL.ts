@@ -6,6 +6,37 @@ import { connection_pool } from "../../Database/mysql";
 import { Association } from "../../Domain/Entity/Association";
 
 export default class UserMysqlRepository implements AssociationInterface {
+  async getProfileDataAssociation(id: number): Promise<any> {
+    const sql = "SELECT * FROM User u JOIN Contact c ON u.id = c.user_id JOIN Manager m ON c.id = m.contact_id JOIN Association a ON m.institution_id = a.id WHERE u.id = ?";
+    const params = [id];
+    let connection;
+    try {
+      connection = await connection_pool.getConnection();
+      const [result]: any = await query(sql, params, connection);
+      
+      if (result && result.length > 0) {
+        return {
+          id: result[0].id,
+          email: result[0].email,
+          role: result[0].role,
+          name: result[0].name,
+          description: result[0].description,
+          cellphone: result[0].cellphone,
+          location: result[0].address
+        };
+      }
+      return false;
+    }
+    catch (error) {
+      console.error("Error al obtener datos de la asociación:", error);
+      return false;
+    } finally {
+      if (connection) {
+        connection.release();
+        console.log("Conexión cerrada");
+      }
+    }
+  }
   async registerAssociation(user: User, association: Association): Promise<any> {
     const sqlUser = "INSERT INTO User (email, password, role) VALUES (?,?,?)";
     const sqlContact = "INSERT INTO Contact (name, age, cellphone, address, genre, user_id) VALUES (?,?,?,?,?,?)";

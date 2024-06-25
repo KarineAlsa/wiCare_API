@@ -43,6 +43,7 @@ export default class LoginController {
             
 
         }catch(error:any) {
+            console.log(error)
             response.status(error.http_status ?? 500)
                 .json({
                     data:error,
