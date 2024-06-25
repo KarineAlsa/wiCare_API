@@ -10,9 +10,9 @@ dotenv.config()
 const server = express();
 const server_port =process.env.PORT;
 server.use(express.json());
-server.use('/user', userRoutes);
-server.use('/user/volunteer', volunteerRouter);
-server.use('/user/association', associationRouter);
+server.use('/', userRoutes);
+server.use('/volunteer', volunteerRouter);
+server.use('/association', associationRouter);
 
 
 server.listen(3000, () => {
