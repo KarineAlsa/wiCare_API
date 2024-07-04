@@ -4,6 +4,7 @@ import RegisterAssociationUseCase from "../Application/UseCase/RegisterAssociati
 import LoginUseCase from "../Application/UseCase/LoginUseCase";
 import GetProfileDataAssociation from "../Application/UseCase/GetProfileDataAssociation";
 import GetProfileDataVolunteer from "../Application/UseCase/GetProfileDataVolunteer";
+import GetProfileDataCompany from "../Application/UseCase/GetProfileDataCompany"
 
 import VolunteerMySQLRepository from "./Repository/VolunteerRepositoryMySQL"
 import AssociationMySQLRepository from "./Repository/AssociationRepositoryMySQL"
@@ -22,6 +23,7 @@ import RegisterCompanyController from "./Controller/RegisterCompanyController";
 import LoginController from "./Controller/LoginController";
 import GetProfileDataAssociationController from "./Controller/GetProfileDataAssociationController";
 import GetProfileDataVolunteerController from "./Controller/GetProfileDataVolunteerController.ts";
+import GetProfileDataCompanyController from "./Controller/GetProfileDataCompanyController"
 
 export const MySqlVolunteerRepository = new VolunteerMySQLRepository();
 export const VolunteerRepository =  MySqlVolunteerRepository
@@ -36,6 +38,7 @@ export const registerCompanyCase =  new RegisterCompanyUseCase(MySqlCompanyRepos
 export const loginCase = new LoginUseCase(MySqlUserRepository);
 export const getProfileDataAssociation = new GetProfileDataAssociation(MySqlAssociationRepository);
 export const getProfileDataVolunteer = new GetProfileDataVolunteer(MySqlVolunteerRepository);
+export const getProfileDataCompany = new GetProfileDataCompany(MySqlCompanyRepository)
 
 export const registerVolunteerController = new RegisterVolunteerController(registerVolunteerCase);
 export const registerAssociationController = new RegisterAssociationController(registerAssociationCase);
@@ -43,3 +46,4 @@ export const registerCompanyController = new RegisterCompanyController(registerC
 export const loginController = new LoginController(loginCase, JWT);
 export const getProfileDataAssociationController = new GetProfileDataAssociationController(getProfileDataAssociation);
 export const getProfileDataVolunteerController = new GetProfileDataVolunteerController(getProfileDataVolunteer);
+export const getProfileDataCompanyController = new GetProfileDataCompanyController(getProfileDataCompany)
