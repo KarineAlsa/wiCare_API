@@ -24,8 +24,8 @@ export class JWTS implements AuthServices {
     return this.blacklist.includes(token);
   }
 
-  generateToken(user: any): any {
-    return jwt.sign(user, this.key);
+  generateToken(userid: any): any {
+    return jwt.sign(userid, this.key, { algorithm: 'HS256', expiresIn: '1h' });
   }
 
 }

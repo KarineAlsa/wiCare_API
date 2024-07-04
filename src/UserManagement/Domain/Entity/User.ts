@@ -1,3 +1,4 @@
+import { randomUUID } from 'crypto';
 import { Contact } from './Contact';
 export class User {
 
