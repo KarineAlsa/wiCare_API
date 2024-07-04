@@ -5,6 +5,7 @@ import { exec } from 'child_process';
 import volunteerRouter from "./UserManagement/Infrastructure/Route/VolunteerRoutes";
 import associationRouter from "./UserManagement/Infrastructure/Route/AssociationRoutes";
 import userRoutes from "./UserManagement/Infrastructure/Route/UserRoutes";
+import companyRouter from "./UserManagement/Infrastructure/Route/CompanyRoutes";
 
 dotenv.config()
 const server = express();
@@ -13,6 +14,7 @@ server.use(express.json());
 server.use('/', userRoutes);
 server.use('/volunteer', volunteerRouter);
 server.use('/association', associationRouter);
+server.use('/company', companyRouter)
 
 
 server.listen(3000, () => {
