@@ -10,7 +10,7 @@ export default class LoginUseCase {
         
         return result;
         } catch {
-        return 'Ocurrió un error';
+        return false;
         }
     }
 }
