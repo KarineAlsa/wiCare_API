@@ -61,9 +61,9 @@ pipeline {
                             "-e SECRET=${SECRET} " +
                             "-e DATABASE_NAME_MYSQL=${DATABASE_NAME_MYSQL} " +
                             "-e DATABASE_PASSWORD_MYSQL=${DATABASE_PASSWORD_MYSQL} " +
-                            "-e DATABASE_USER_MYSQL=${DATABASE_USER_MYSQL}" +
-                            "-e AWS_REGION=${AWS_REGION}" +
-                            "-e S3_BUCKET_NAME=${S3_BUCKET_NAME}" +
+                            "-e DATABASE_USER_MYSQL=${DATABASE_USER_MYSQL} " +
+                            "-e AWS_REGION=${AWS_REGION} " +
+                            "-e S3_BUCKET_NAME=${S3_BUCKET_NAME} " +
                             "-e S3_FOLDER=${S3_FOLDER}")
                 }
             }
