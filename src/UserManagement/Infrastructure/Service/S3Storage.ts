@@ -18,7 +18,7 @@ export class S3StorageService implements IStorageService{
       await axios.put(s3Url, file, {
         headers: {
           'Content-Type': mimeType,
-          'x-amz-acl': 'public-read', // Asegúrate de que el bucket permita esto
+          'x-amz-acl': 'public-read',
         },
       });
 
@@ -27,4 +27,21 @@ export class S3StorageService implements IStorageService{
       throw new Error(`Failed to upload file to S3: ${error.message}`);
     }
   }
+
+  async deleteProfilePicture(url: string): Promise<boolean> {
+    const s3Url = url;
+
+    try {
+      await axios.delete(s3Url, {
+        headers: {
+          'x-amz-acl': 'public-read',
+        },
+      });
+      return true
+    } catch (error: any) {
+      throw new Error(`Failed to delete file from S3: ${error.message}`);
+    }
+  }
+
+  
 }

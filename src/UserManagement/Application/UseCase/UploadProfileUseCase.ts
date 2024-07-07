@@ -6,6 +6,10 @@ export default class UploadProfilePictureUseCase {
 
   async execute(file: Buffer, fileName: string, mimeType: string, id:any): Promise<any> {
     try {
+      const hasAlready = await this.repository.getProfileData(id);
+      if (hasAlready.photoURL) {
+        await this.storageService.deleteProfilePicture(hasAlready.photoURL);
+      }
       const fileUrl = await this.storageService.uploadProfilePicture(file, fileName, mimeType);
       const user = await this.repository.uploadPhoto(fileUrl, id);
       return user;

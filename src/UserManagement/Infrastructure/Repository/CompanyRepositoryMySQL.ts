@@ -22,7 +22,8 @@ export default class UserMysqlRepository implements CompanyInterface {
           name: result[0].name,
           description: result[0].description,
           cellphone: result[0].cellphone,
-          location: result[0].address
+          location: result[0].address,
+          photoURL: result[0].photo
         };
       }
       return false;

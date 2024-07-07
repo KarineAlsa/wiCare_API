@@ -4,9 +4,38 @@ import bcrypt from 'bcrypt';
 import query from "../../Database/mysql";
 import { connection_pool } from "../../Database/mysql";
 
+
+
+
 export default class UserMysqlRepository implements UserInterface {
+  async getProfileData(id: number): Promise<any> {
+   const sql = "SELECT photo FROM User WHERE id = ?";
+    const params = [id];
+    let connection;
+    try {
+      connection = await connection_pool.getConnection();
+      const [result]: any = await query(sql, params, connection);
+      if (result && result.length > 0) {
+        return {
+          photoURL: result[0].photo
+        };
+      }
+      return false;
+    }
+    catch (error) {
+      console.error("Error al obtener datos del usuario:", error);
+      return false;
+    } finally {
+      if (connection) {
+        connection.release();
+        console.log("Conexión cerrada");
+      }
+    }
+  }
   async uploadPhoto(fileUrl:string, id:any): Promise<any> {
     const sql = "UPDATE User SET photo = ? WHERE id = ?";
+
+    
     const params: any[] = [fileUrl,id];
     let connection;
     try{

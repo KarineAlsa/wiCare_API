@@ -1,7 +1,8 @@
-
 import { Request, Response } from 'express';
 import  uploadProfilePictureUseCase  from '../../Application/UseCase/UploadProfileUseCase';
 import { upload } from '../../../config/multer';
+import crypto from 'crypto';
+import { randomUUID } from 'crypto';
 
 export default class ProfileController {
 
@@ -13,7 +14,7 @@ export default class ProfileController {
     }
     
     const file = req.file?.buffer;
-    const fileName = req.file?.originalname;
+    const fileName = randomUUID() + req.file?.originalname;
     const mimeType = req.file?.mimetype;
     const id = req.params.id;
 
