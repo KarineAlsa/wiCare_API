@@ -3,12 +3,13 @@ import { Manager } from "../../Domain/Entity/Manager";
 import { Association } from "../../Domain/Entity/Association";
 import  AssociationInterface  from "../../Domain/Port/AssociationInterface";
 import { Contact } from "../../Domain/Entity/Contact";
+import { double } from "aws-sdk/clients/lightsail";
 
 export default class RegisterAssociationUseCase {
 
     constructor(readonly repository:AssociationInterface) {}
 
-    async run( {name, email, password, role, manager, foundation_date, social_reason, description, RFC, address, cellphone}: {
+    async run( {name, email, password, role, manager, foundation_date, social_reason, description, RFC, latitude, longitude, cellphone}: {
         name:string,
         email:string,
         password:string,
@@ -18,7 +19,8 @@ export default class RegisterAssociationUseCase {
         social_reason:string,
         description:string,
         RFC:string,
-        address:string,
+        latitude:double,
+        longitude:double,
         cellphone:string
       } ):Promise<User|any> {
         try {
@@ -30,7 +32,7 @@ export default class RegisterAssociationUseCase {
                 manager.contact
                 
             );
-            let association = new Association(name,foundation_date,social_reason,description,manager, RFC, address, cellphone);
+            let association = new Association(name,foundation_date,social_reason,description,manager, RFC, latitude,longitude, cellphone);
 
             return await this.repository.registerAssociation(user,association);
         }catch(error) {

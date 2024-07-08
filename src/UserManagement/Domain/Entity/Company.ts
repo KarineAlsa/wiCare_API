@@ -7,7 +7,8 @@ export class Company {
     public description:string;
     public manager: Manager;
     public RFC:string;
-    public address:string;
+    public latitude:number;
+    public longitude:number;
     public cellphone;
     public id?:number
 
@@ -19,7 +20,8 @@ export class Company {
         description:string,
         manager:Manager,
         RFC:string,
-        address:string,
+        latitude:number,
+        longitude:number,
         cellphone:string,
         id?:number
     ) {
@@ -29,7 +31,8 @@ export class Company {
         this.description = description;
         this.manager = manager
         this.RFC = RFC;
-        this.address= address;
+        this.latitude = latitude;
+        this.longitude = longitude;
         this.cellphone = cellphone;
         this.id = id;
     }

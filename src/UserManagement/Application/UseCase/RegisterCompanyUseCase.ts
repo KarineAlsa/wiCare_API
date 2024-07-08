@@ -3,12 +3,14 @@ import { Manager } from "../../Domain/Entity/Manager";
 import { Company } from "../../Domain/Entity/Company";
 import  CompanyInterface  from "../../Domain/Port/CompanyInterface";
 import { Contact } from "../../Domain/Entity/Contact";
+import { double } from "aws-sdk/clients/lightsail";
+import { Double } from "aws-sdk/clients/cloudtrail";
 
 export default class RegisterCompanyUseCase {
 
     constructor(readonly repository:CompanyInterface) {}
 
-    async run( {name, email, password, role, manager, foundation_date, context, description, RFC, address, cellphone}: {
+    async run( {name, email, password, role, manager, foundation_date, context, description, RFC, latitude,longitude, cellphone}: {
         name:string,
         email:string,
         password:string,
@@ -18,7 +20,8 @@ export default class RegisterCompanyUseCase {
         context:string,
         description:string,
         RFC:string,
-        address:string,
+        latitude:double,
+        longitude:double,
         cellphone:string
       } ):Promise<User|any> {
         try {
@@ -30,7 +33,7 @@ export default class RegisterCompanyUseCase {
                 manager.contact
                 
             );
-            let company = new Company(name,foundation_date,context,description,manager, RFC, address, cellphone);
+            let company = new Company(name,foundation_date,context,description,manager, RFC, latitude,longitude, cellphone);
 
             return await this.repository.registerCompany(user,company);
         }catch(error) {

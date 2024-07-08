@@ -8,21 +8,23 @@ export default class RegisterCompanyController {
 
     async run(request:Request,response:Response) {
         //La fecha de nacimiento tiene que ir en formato YYYY-MM-DD
-        const { email, name,name_manager, age,cellphone, cellphone_manager,address, address_manager,genre, password, position, foundation_date,context, description, RFC} = request.body;
+        const { email, name,name_manager, age,cellphone, cellphone_manager,latitude,longitude, latitude_manager, longitude_manager,genre, password, position, foundation_date,context, description, RFC} = request.body;
         
         if (!email || 
             !name || 
             !age || 
             !password || 
             !cellphone || 
-            !address || 
+            !latitude ||
+            !longitude ||
             !genre || 
             !position || 
             !foundation_date || 
             !context || 
             !description ||
             !RFC ||
-            !address_manager ||
+            !latitude_manager ||
+            !longitude_manager ||
             !name_manager ||
             !cellphone_manager) {
             return response.status(400).json({
@@ -35,14 +37,14 @@ export default class RegisterCompanyController {
             name.trim() === "" || 
             cellphone.trim() === "" || 
             password.trim() === "" || 
-            address.trim() === "" || 
+            
             genre.trim() === "" || 
             position.trim() === "" || 
             context.trim() === "" || 
             description.trim() === "" || 
             foundation_date.trim() === "" ||
             RFC.trim() === "" ||
-            address_manager.trim() === "" ||
+            
             name_manager.trim() === "" ||
             cellphone_manager.trim() === ""){
             return response.status(400).json({
@@ -62,7 +64,8 @@ export default class RegisterCompanyController {
                         name: name_manager,
                         age: age,
                         cellphone: cellphone_manager,
-                        address: address_manager,
+                        latitude:Number(latitude_manager),
+                        longitude:Number(longitude_manager),
                         genre:genre
                     },
                     position: position
@@ -71,7 +74,8 @@ export default class RegisterCompanyController {
                 context:context,
                 description:description, 
                 RFC:RFC,
-                address: address,
+                latitude: Number(latitude),
+                longitude:Number(longitude),
                 cellphone: cellphone
             });
             if (user) {
