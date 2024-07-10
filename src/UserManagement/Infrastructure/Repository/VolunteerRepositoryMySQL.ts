@@ -24,6 +24,7 @@ export default class UserMysqlRepository implements VolunteerInterface {
           cellphone: result[0].cellphone,
           genre: result[0].genre,
           occupation: result[0].occupation,
+          profilePicture:result[0].photo,
         };
       }
       return false;

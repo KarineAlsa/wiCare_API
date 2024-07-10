@@ -25,7 +25,8 @@ export default class UserMysqlRepository implements CompanyInterface {
           location: {
             latitude: result[0].latitude,
             longitude: result[0].longitude
-          }
+          },
+          profilePicture:result[0].photo,
         };
       }
       return false;
