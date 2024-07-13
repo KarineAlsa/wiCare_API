@@ -4,8 +4,36 @@ import bcrypt from 'bcrypt';
 import query from "../../Database/mysql";
 import { connection_pool } from "../../Database/mysql";
 import { Association } from "../../Domain/Entity/Association";
+import { Bank } from "../../Domain/Entity/Bank";
 
 export default class UserMysqlRepository implements AssociationInterface {
+  async addBankAccount(bank: Bank): Promise<any> {
+    const sql = "INSERT INTO Bank (name, number, bank, association_id) VALUES (?,?,?,?)";
+    const params = [bank.name, bank.number, bank.bank, bank.association_id];
+    let connection;
+    try {
+      connection = await connection_pool.getConnection();
+      await connection.beginTransaction();
+      const [result]: any = await query(sql, params, connection);
+      if (result.insertId) {
+        await connection.commit();
+        return {
+          name: bank.name,
+          number: bank.number,
+          bank: bank.bank,
+          association_id: bank.association_id
+        };
+      }
+      
+    } catch (error) {
+      console.error("Error al agregar cuenta bancaria:", error);
+      if (connection) {
+        await connection.rollback();
+        await connection.release();
+      }
+      return false;
+    }
+  }
   async getProfileDataAssociation(id: number): Promise<any> {
     const sql = "SELECT * FROM User u JOIN Contact c ON u.id = c.user_id JOIN Manager m ON c.id = m.contact_id JOIN Association a ON m.institution_id = a.id WHERE u.id = ?";
     const params = [id];
@@ -29,6 +57,7 @@ export default class UserMysqlRepository implements AssociationInterface {
           profilePicture:result[0].photo,
         };
       }
+      await connection.rollback();
       return false;
     }
     catch (error) {
