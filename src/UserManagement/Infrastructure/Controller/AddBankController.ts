@@ -8,7 +8,8 @@ export default class AddBankAccountController {
 
     async run(request:Request,response:Response) {
         //La fecha de nacimiento tiene que ir en formato YYYY-MM-DD
-        const {  name, number, association_id, bank} = request.body;
+        const {  name, number, bank} = request.body;
+        const association_id = request.params.id;
         
         if (!name || !number || !association_id || !bank) {
             return response.status(400).json({
