@@ -12,6 +12,10 @@ pipeline {
         AWS_REGION="${env.AWS_REGION}"
         S3_BUCKET_NAME="${env.S3_BUCKET_NAME}"
         S3_FOLDER="${env.S3_FOLDER}"
+        RABBIT_HOST="${env.RABBIT_HOST}"
+        RABBIT_USER ="${env.RABBIT_USER}"
+        RABBIT_PASSWORD = "${env.RABBIT_PASSWORD}"
+        RABBIT_PROTOCOL = "${env.RABBIT_PROTOCOL}"
 
     }
 
@@ -66,7 +70,11 @@ pipeline {
                             "-e AWS_REGION=${AWS_REGION} " +
                             "-e S3_BUCKET_NAME=${S3_BUCKET_NAME} " +
                             "-e S3_FOLDER=${S3_FOLDER} " + 
-                            "-e ENCRYPT_SECRET=${ENCRYPT_SECRET}")
+                            "-e ENCRYPT_SECRET=${ENCRYPT_SECRET} " +
+                            "-e RABBIT_HOST=${RABBIT_HOST} " +
+                            "-e RABBIT_USER=${RABBIT_USER} " +
+                            "-e RABBIT_PASSWORD=${RABBIT_PASSWORD} " +
+                            "-e RABBIT_PROTOCOL=${RABBIT_PROTOCOL}")
                 }
             }
         }

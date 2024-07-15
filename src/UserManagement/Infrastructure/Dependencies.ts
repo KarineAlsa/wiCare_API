@@ -7,6 +7,7 @@ import GetProfileDataVolunteer from "../Application/UseCase/GetProfileDataVolunt
 import GetProfileDataCompany from "../Application/UseCase/GetProfileDataCompany"
 import UploadProfilePictureUseCase from "../Application/UseCase/UploadProfileUseCase";
 import AddBankUseCase from "../Application/UseCase/AddBankUseCase";
+import GetAssociationEvents from "../Application/UseCase/GetAssociationEventsUseCase";
 
 import VolunteerMySQLRepository from "./Repository/VolunteerRepositoryMySQL"
 import AssociationMySQLRepository from "./Repository/AssociationRepositoryMySQL"
@@ -32,6 +33,7 @@ import GetProfileDataVolunteerController from "./Controller/GetProfileDataVolunt
 import GetProfileDataCompanyController from "./Controller/GetProfileDataCompanyController"
 import UploadProfilePictureController from "./Controller/UploadProfileController";
 import AddBankAccountController from "./Controller/AddBankController";
+import GetAssociationEventsController from "./Controller/GetAssociationEventsController";
 
 export const MySqlVolunteerRepository = new VolunteerMySQLRepository();
 export const VolunteerRepository =  MySqlVolunteerRepository
@@ -49,6 +51,7 @@ export const getProfileDataVolunteer = new GetProfileDataVolunteer(MySqlVoluntee
 export const getProfileDataCompany = new GetProfileDataCompany(MySqlCompanyRepository)
 export const uploadProfilePictureUseCase = new UploadProfilePictureUseCase(MySqlUserRepository, S3Storage)
 export const addBankUseCase = new AddBankUseCase(MySqlAssociationRepository)
+export const getAssociationEvents = new GetAssociationEvents(MySqlAssociationRepository);
 
 export const registerVolunteerController = new RegisterVolunteerController(registerVolunteerCase);
 export const registerAssociationController = new RegisterAssociationController(registerAssociationCase);
@@ -59,3 +62,4 @@ export const getProfileDataVolunteerController = new GetProfileDataVolunteerCont
 export const getProfileDataCompanyController = new GetProfileDataCompanyController(getProfileDataCompany)
 export const uploadProfilePictureController = new UploadProfilePictureController(uploadProfilePictureUseCase)
 export const addBankAccountController = new AddBankAccountController(addBankUseCase);
+export const getAssociationEventsController = new GetAssociationEventsController(getAssociationEvents);
