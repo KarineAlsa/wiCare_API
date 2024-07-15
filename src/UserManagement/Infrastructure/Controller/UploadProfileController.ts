@@ -1,4 +1,3 @@
-
 import { Request, Response } from 'express';
 import  uploadProfilePictureUseCase  from '../../Application/UseCase/UploadProfileUseCase';
 import { upload } from '../../../config/multer';
@@ -9,9 +8,9 @@ export default class ProfileController {
     async uploadProfilePicture(req:any, res:any) {
 
     if (!req.file) {
-        return req.status(400).json({ error: 'No file uploaded' });
+        return res.status(400).json({ error: 'No file uploaded' });
     }
-    
+
     const file = req.file?.buffer;
     const fileName = req.file?.originalname;
     const mimeType = req.file?.mimetype;
