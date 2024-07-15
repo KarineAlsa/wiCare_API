@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import  RegisterUseCase  from "../../Application/UseCase/RegisterAssociationUseCase";
 import { CryptService } from "../Dependencies";
-
+import validator from 'validator';
 export default class RegisterAssociationController {
 
     constructor(readonly useCase:RegisterUseCase){}
@@ -47,6 +47,49 @@ export default class RegisterAssociationController {
             cellphone_manager.trim() === ""){
             return response.status(400).json({
                 message: "Los campos no pueden estar vacíos.",
+                success: false
+            });
+        }
+        if(!validator.isEmail(email)){
+            return response.status(400).json({
+                message: "El email no es válido.",
+                success: false
+            });
+        }
+        if (!validator.isMobilePhone(cellphone)){
+            return response.status(400).json({
+                message: "El número de celular no es válido.",
+                success: false
+            });
+        }
+        if (!validator.isLatLong(latitude + "," + longitude)){
+            return response.status(400).json({
+                message: "Las coordenadas no son válidas.",
+                success: false
+            });
+        }
+        if (!validator.isLatLong(latitude_manager + "," + longitude_manager)){
+            return response.status(400).json({
+                message: "Las coordenadas no son válidas.",
+                success: false
+            });
+        }
+        
+        if (!validator.isMobilePhone(cellphone_manager)){
+            return response.status(400).json({
+                message: "El número de celular del gerente no es válido.",
+                success: false
+            });
+        }
+        if (!validator.isAlpha(genre)){
+            return response.status(400).json({
+                message: "El género no es válido.",
+                success: false
+            });
+        }
+        if (!validator.isStrongPassword(password)){
+            return response.status(400).json({
+                message: "La contraseña no es lo suficientemente segura.",
                 success: false
             });
         }

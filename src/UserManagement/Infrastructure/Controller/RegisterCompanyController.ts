@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import  RegisterUseCase  from "../../Application/UseCase/RegisterCompanyUseCase";
 import { CryptService } from "../Dependencies";
-
+import validator from 'validator';
 export default class RegisterCompanyController {
 
     constructor(readonly useCase:RegisterUseCase){}
@@ -52,6 +52,65 @@ export default class RegisterCompanyController {
                 success: false
             });
         }
+        if(!validator.isEmail(email)){
+            return response.status(400).json({
+                message: "El email no es válido.",
+                success: false
+            });
+        }
+        
+        if (!validator.isMobilePhone(cellphone)){
+            return response.status(400).json({
+                message: "El número de celular no es válido.",
+                success: false
+            });
+        }
+        if (!validator.isStrongPassword(password)){
+            return response.status(400).json({
+                message: "La contraseña no es lo suficientemente segura.",
+                success: false
+            });
+        }
+        
+        if (!validator.isMobilePhone(cellphone_manager)){
+            return response.status(400).json({
+                message: "El número de celular del manager no es válido.",
+                success: false
+            });
+        }
+        if (!validator.isAlpha(genre)){
+            return response.status(400).json({
+                message: "El género no es válido.",
+                success: false
+            });
+        }
+        if (!validator.isLatLong(latitude + "," + longitude)){
+            return response.status(400).json({
+                message: "Las coordenadas no son válidas.",
+                success: false
+            });
+        }
+        if (!validator.isLatLong(latitude_manager + "," + longitude_manager)){
+            return response.status(400).json({
+                message: "Las coordenadas del manager no son válidas.",
+                success: false
+            });
+        }
+        if (!validator.isAlpha(position)){
+            return response.status(400).json({
+                message: "La posición no es válida.",
+                success: false
+            });
+        }
+        
+       
+        if (!validator.isAlphanumeric(RFC)){
+            return response.status(400).json({
+                message: "El RFC no es válido.",
+                success: false
+            });
+        }
+
         try {
             
             let user = await this.useCase.run({

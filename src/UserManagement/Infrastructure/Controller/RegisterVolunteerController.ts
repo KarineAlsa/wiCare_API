@@ -41,12 +41,6 @@ export default class RegisterVolunteerController {
                 success: false
             });
         }
-        if (!validator.isNumeric(age)){
-            return response.status(400).json({
-                message: "La edad no es válida.",
-                success: false
-            });
-        }
         
         if (!validator.isStrongPassword(password)){
             return response.status(400).json({
