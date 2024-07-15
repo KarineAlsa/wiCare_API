@@ -66,7 +66,7 @@ pipeline {
                             "-e AWS_REGION=${AWS_REGION} " +
                             "-e S3_BUCKET_NAME=${S3_BUCKET_NAME} " +
                             "-e S3_FOLDER=${S3_FOLDER} " + 
-                            "-e ENCRYPT_SECRET=${ENCRYPT_SECRET}" +)
+                            "-e ENCRYPT_SECRET=${ENCRYPT_SECRET}")
                 }
             }
         }
