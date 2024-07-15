@@ -8,6 +8,7 @@ pipeline {
         DATABASE_PASSWORD_MYSQL = "${env.DATABASE_PASSWORD_MYSQL}"
         DATABASE_USER_MYSQL = "${env.DATABASE_USER_MYSQL}"
         SECRET = "${env.SECRET}"
+        ENCRYPT_SECRET = "${env.ENCRYPT_SECRET}"
         AWS_REGION="${env.AWS_REGION}"
         S3_BUCKET_NAME="${env.S3_BUCKET_NAME}"
         S3_FOLDER="${env.S3_FOLDER}"
@@ -64,7 +65,8 @@ pipeline {
                             "-e DATABASE_USER_MYSQL=${DATABASE_USER_MYSQL} " +
                             "-e AWS_REGION=${AWS_REGION} " +
                             "-e S3_BUCKET_NAME=${S3_BUCKET_NAME} " +
-                            "-e S3_FOLDER=${S3_FOLDER}")
+                            "-e S3_FOLDER=${S3_FOLDER} " + 
+                            "-e ENCRYPT_SECRET=${ENCRYPT_SECRET}" +)
                 }
             }
         }

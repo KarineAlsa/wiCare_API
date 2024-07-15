@@ -8,11 +8,6 @@ export default class AddBankAccountController {
     constructor(readonly useCase:AddBankUseCase){}
 
     async run(request:Request,response:Response) {
-        const providedSignature = request.headers['x-signature'] as string;
-
-        if (!providedSignature) {
-            return response.status(400).json({ message: 'X-Signature header is required' });
-        }
 
         const data = JSON.stringify(request.body);
         const signature = crypto.createHmac('sha256', process.env.SECRET_KEY).update(data).digest('hex');
@@ -34,8 +29,6 @@ export default class AddBankAccountController {
             });
         }
 
-        if (crypto.timingSafeEqual(Buffer.from(signature), Buffer.from(providedSignature))) {
-            
           
         try {
             
@@ -62,8 +55,6 @@ export default class AddBankAccountController {
                 success:false
             });
         }
-    } else {
-        response.status(400).json({ message: 'Data integrity validation failed' });
-      }
+    } 
     }
-    }
+    

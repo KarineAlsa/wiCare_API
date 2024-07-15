@@ -9,7 +9,7 @@ export class Crypt implements CryptServices {
     private readonly key: string;
 
     constructor() {
-        this.key = process.env.SECRET || '';
+        this.key = process.env.ENCRYPT_SECRET || '';
     }
     
     generateCrypt(data: string): string {
