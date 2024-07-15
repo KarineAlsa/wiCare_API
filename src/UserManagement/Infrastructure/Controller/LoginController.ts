@@ -19,10 +19,10 @@ export default class LoginController {
                 success: false
             });
         }
+
         try {
             
             let user = await this.useCase.run(email,password);
-           
             if (!user){
                 return response
                 .status(401)
@@ -51,6 +51,8 @@ export default class LoginController {
                     success:false
                 });
         }
-    }
+        }
 
-}
+
+    
+    }

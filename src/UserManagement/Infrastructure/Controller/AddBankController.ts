@@ -1,13 +1,22 @@
 import { Request, Response } from "express";
 import  AddBankUseCase  from "../../Application/UseCase/AddBankUseCase";
 import { CryptService } from "../Dependencies";
+const crypto = require('crypto');
 
 export default class AddBankAccountController {
 
     constructor(readonly useCase:AddBankUseCase){}
 
     async run(request:Request,response:Response) {
-        //La fecha de nacimiento tiene que ir en formato YYYY-MM-DD
+        const providedSignature = request.headers['x-signature'] as string;
+
+        if (!providedSignature) {
+            return response.status(400).json({ message: 'X-Signature header is required' });
+        }
+
+        const data = JSON.stringify(request.body);
+        const signature = crypto.createHmac('sha256', process.env.SECRET_KEY).update(data).digest('hex');
+
         const {  name, number, bank} = request.body;
         const association_id = request.params.id;
         
@@ -24,6 +33,10 @@ export default class AddBankAccountController {
                 success: false
             });
         }
+
+        if (crypto.timingSafeEqual(Buffer.from(signature), Buffer.from(providedSignature))) {
+            
+          
         try {
             
             let bankAccount = await this.useCase.run({
@@ -49,5 +62,8 @@ export default class AddBankAccountController {
                 success:false
             });
         }
+    } else {
+        response.status(400).json({ message: 'Data integrity validation failed' });
+      }
     }
     }

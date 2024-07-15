@@ -16,10 +16,12 @@ import CompanyMySQLRepository from "./Repository/CompanyRepositoryMySQL"
 import {JWTS} from "./Service/JWT"
 import {Crypt} from "./Service/EncryptService"
 import { S3StorageService } from './Service/S3Storage';
+import { Integrity } from "./Service/IntegrityService";
 
 export const JWT = new JWTS();
 export const CryptService = new Crypt();
 export const S3Storage = new S3StorageService()
+export const IntegrityService = new Integrity()
 
 import RegisterVolunteerController from './Controller/RegisterVolunteerController'
 import RegisterAssociationController from "./Controller/RegisterAssociationController";

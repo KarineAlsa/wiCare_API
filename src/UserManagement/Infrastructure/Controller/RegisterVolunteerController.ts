@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import  RegisterUseCase  from "../../Application/UseCase/RegisterVolunteerUseCase";
 import { CryptService } from "../Dependencies";
-
+import validator from 'validator';
 
 export default class RegisterVolunteerController {
 
@@ -23,6 +23,62 @@ export default class RegisterVolunteerController {
                 success: false
             });
         }
+        if (!validator.isAlpha(name)){
+            return response.status(400).json({
+                message: "El nombre no es válido.",
+                success: false
+            });
+        }
+        if (!validator.isEmail(email)){
+            return response.status(400).json({
+                message: "El email no es válido.",
+                success: false
+            });
+        }
+        if (!validator.isMobilePhone(cellphone)){
+            return response.status(400).json({
+                message: "El número de celular no es válido.",
+                success: false
+            });
+        }
+        if (!validator.isNumeric(age)){
+            return response.status(400).json({
+                message: "La edad no es válida.",
+                success: false
+            });
+        }
+        
+        if (!validator.isStrongPassword(password)){
+            return response.status(400).json({
+                message: "La contraseña no es lo suficientemente segura.",
+                success: false
+            });
+        }
+        if (!validator.isPostalCode(postal, "any")){
+            return response.status(400).json({
+                message: "El código postal no es válido.",
+                success: false
+            });
+        }
+        if (!validator.isAlpha(occupation)){
+            return response.status(400).json({
+                message: "La ocupación no es válida.",
+                success: false
+            });
+        }
+        if (!validator.isAlpha(genre)){
+            return response.status(400).json({
+                message: "El género no es válido.",
+                success: false
+            });
+        }
+        if (!validator.isLatLong(latitude + "," + longitude)){
+            return response.status(400).json({
+                message: "Las coordenadas no son válidas.",
+                success: false
+            });
+        }
+        
         try {
             
             let user = await this.useCase.run({
@@ -37,7 +93,7 @@ export default class RegisterVolunteerController {
                     longitude:Number(longitude),
                     genre:genre
                 },
-                curp:curp,
+                curp:CryptService.generateCrypt(curp.toUpperCase()),
                 occupation:occupation,
                 postal:postal
 
