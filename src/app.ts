@@ -6,6 +6,7 @@ import volunteerRouter from "./UserManagement/Infrastructure/Route/VolunteerRout
 import associationRouter from "./UserManagement/Infrastructure/Route/AssociationRoutes";
 import userRoutes from "./UserManagement/Infrastructure/Route/UserRoutes";
 import companyRouter from "./UserManagement/Infrastructure/Route/CompanyRoutes";
+import { consumeMessages } from "./UserManagement/Infrastructure/Service/SagaConsumer";
 
 dotenv.config()
 const server = express();
@@ -16,10 +17,6 @@ server.use('/volunteer', volunteerRouter);
 server.use('/association', associationRouter);
 server.use('/company', companyRouter)
 
-
-server.listen(3000, () => {
-    console.log(`Server listening on http://localhost:${server_port}/`);
-});
 
 const migrateScript = path.join(__dirname, '..', 'src', 'UserManagement', 'Infrastructure', 'Migration', 'Migration.ts');
 
@@ -34,4 +31,15 @@ migrationProcess.on('exit', (code: number) => {
 });
 
 
-export default server;
+async function startServer() {
+
+    await consumeMessages();
+
+    server.listen(3000, () => {
+        console.log(`Server listening on http://localhost:${server_port}/`);
+    });
+    
+
+}
+
+startServer();
