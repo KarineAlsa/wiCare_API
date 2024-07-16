@@ -71,13 +71,13 @@ export default class UserMysqlRepository implements AssociationInterface {
     }
   }
   async registerAssociation(user: User, association: Association): Promise<any> {
-    const sqlUser = "INSERT INTO User (email, password, role) VALUES (?,?,?)";
+    const sqlUser = "INSERT INTO User (email, password, role, photo) VALUES (?,?,?,?)";
     const sqlContact = "INSERT INTO Contact (name, age, cellphone, latitude, longitude, genre, user_id) VALUES (?,?,?,?,?,?,?)";
     const sqlAssociation = "INSERT INTO Association (name, foundation_date, social_reason, description, RFC, latitude, longitude, cellphone) VALUES (?,?,?,?,?,?,?,?)";
     const sqlManager = "INSERT INTO Manager (position, contact_id, institution_id, type) VALUES (?,?,?,?)";
     const hash = bcrypt.hashSync(user.password, 10);
 
-    const paramsUser: any[] = [user.email, hash, user.role];
+    const paramsUser: any[] = [user.email, hash, user.role, 'https://wicare.s3.amazonaws.com/profile/deafult.jpeg'];
     const paramsContact: any[] = [user.contact?.name, user.contact?.age, user.contact?.cellphone, user.contact?.latitude, user.contact?.longitude, user.contact?.genre];
     const paramsAssociation: any[] = [association.name, association.foundation_date, association.social_reason, association.description, association.RFC, association.latitude, association.longitude, association.cellphone];
     const paramsManager: any[] = [association.manager.position];

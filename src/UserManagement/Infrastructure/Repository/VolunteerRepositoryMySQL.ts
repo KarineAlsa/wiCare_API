@@ -39,12 +39,12 @@ export default class UserMysqlRepository implements VolunteerInterface {
     }
   }
   async registerVolunteer(user: User, volunteer: Volunteer): Promise<any> {
-    const sqlUser = "INSERT INTO User (email, password, role) VALUES (?, ?, ?)";
+    const sqlUser = "INSERT INTO User (email, password, role,photo) VALUES (?, ?, ?,?)";
     const sqlContact = "INSERT INTO Contact (name, age, cellphone, latitude,longitude, genre, user_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
     const sqlVolunteer = "INSERT INTO Volunteer (CURP, occupation, contact_id, postal) VALUES (?, ?, ?, ?)";
 
     const hash = bcrypt.hashSync(user.password, 10);
-    const paramsUser: any[] = [user.email, hash, user.role];
+    const paramsUser: any[] = [user.email, hash, user.role, "https://wicare.s3.amazonaws.com/profile/deafult.jpeg"];
     const paramsContact: any[] = [user.contact?.name, user.contact?.age, user.contact?.cellphone, user.contact?.latitude, user.contact?.longitude, user.contact?.genre];
     const paramsVolunteer: any[] = [volunteer.CURP, volunteer.occupation];
 
