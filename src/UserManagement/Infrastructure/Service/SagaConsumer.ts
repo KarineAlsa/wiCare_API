@@ -62,7 +62,7 @@ const handleGetEvents = async (message: any) => {
     try {
 
         for (const event of message) {
-            event.association = await getProfileDataAssociation.run(event.associationId);
+            event.association = await getProfileDataAssociation.run(event.association_id);
         }
         
         return message ;
