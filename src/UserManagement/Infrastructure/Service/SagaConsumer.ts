@@ -1,6 +1,6 @@
 import * as amqp from 'amqplib';
 import dotenv from 'dotenv';
-import { getProfileDataAssociation } from '../Dependencies';
+import { getProfileDataAssociation, getProfileDataVolunteer } from '../Dependencies';
 dotenv.config();
 
 
@@ -21,7 +21,7 @@ export const consumeMessages = async () => {
     
         const queues = [
             { name: 'get_allevents_queue', bindingKey: 'getAllEvents', handler: handleGetEvents },
-            
+            { name: 'get_volunteer_queue', bindingKey: 'getEventVolunteers', handler: handleGetVolunteers },
         ];
         for (const queue of queues) {
             await channel.assertQueue(queue.name, { durable: false });
@@ -72,4 +72,17 @@ const handleGetEvents = async (message: any) => {
     
 };
 
+const handleGetVolunteers = async (message: any) => {
+    
+    try {
+
+        for (const volunteer of message) {
+            volunteer.profile = await getProfileDataVolunteer.run(volunteer.user_id);
+        }
+        return message;
+    } catch (error:any) {
+        console.error(`Error getting volunteers:`, error.message);
+    }
+    
+};
 
