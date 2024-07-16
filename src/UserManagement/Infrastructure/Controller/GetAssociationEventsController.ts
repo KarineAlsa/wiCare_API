@@ -28,7 +28,7 @@ export default class LoginController {
                 
                 if (events) {
 
-                    //recorrer los eventos y obtener los datos de la asociacion
+                    
                     for (let i = 0; i < events.length; i++) {
                         let association = await getProfileDataAssociation.run(events[i].association_id);
                         events[i].association = association;
