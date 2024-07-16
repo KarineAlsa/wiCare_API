@@ -22,6 +22,7 @@ export const consumeMessages = async () => {
         const queues = [
             { name: 'get_allevents_queue', bindingKey: 'getAllEvents', handler: handleGetEvents },
             { name: 'get_volunteer_queue', bindingKey: 'getEventVolunteers', handler: handleGetVolunteers },
+            { name: 'get_event_by_id', bindingKey: 'getEventById', handler: handleEventId}
         ];
         for (const queue of queues) {
             await channel.assertQueue(queue.name, { durable: false });
@@ -82,6 +83,21 @@ const handleGetVolunteers = async (message: any) => {
         return message;
     } catch (error:any) {
         console.error(`Error getting volunteers:`, error.message);
+    }
+    
+};
+
+const handleEventId = async (message: any) => {
+    
+    try {
+
+        
+        message.association = await getProfileDataAssociation.run(message.association_id);
+        
+        
+        return message ;
+    } catch (error:any) {
+        console.error(`Error getting events:`, error.message);
     }
     
 };
