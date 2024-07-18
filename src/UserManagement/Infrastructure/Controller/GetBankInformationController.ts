@@ -7,7 +7,7 @@ export default class LoginController {
 
     async run(request:Request,response:Response) {
         const id = request.params.id;
-        console.log(id)
+        console.log("id")
         try {
             
             let bank = await this.useCase.run(Number(id));
