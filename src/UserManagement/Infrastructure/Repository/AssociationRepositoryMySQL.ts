@@ -7,6 +7,32 @@ import { Association } from "../../Domain/Entity/Association";
 import { Bank } from "../../Domain/Entity/Bank";
 
 export default class UserMysqlRepository implements AssociationInterface {
+  async getBankInformation(id: number): Promise<Bank | any> {
+    const sql = "SELECT * FROM Bank WHERE association_id = ?";
+    const params = [id];
+    let connection;
+    try {
+      connection = await connection_pool.getConnection();
+      const [result]: any = await query(sql, params, connection);
+      if (result && result.length > 0) {
+        return {
+          name: result[0].name,
+          number: result[0].number,
+          bank: result[0].bank,
+          association_id: result[0].association_id
+        };
+      }
+      return false;
+    } catch (error) {
+      console.error("Error al obtener información bancaria:", error);
+      return false;
+    } finally {
+      if (connection) {
+        connection.release();
+        console.log("Conexión cerrada");
+      }
+  }
+}
   async addBankAccount(bank: Bank): Promise<any> {
     const sql = "INSERT INTO Bank (name, number, bank, association_id) VALUES (?,?,?,?)";
     const params = [bank.name, bank.number, bank.bank, bank.association_id];
