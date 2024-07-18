@@ -9,6 +9,7 @@ import UploadProfilePictureUseCase from "../Application/UseCase/UploadProfileUse
 import AddBankUseCase from "../Application/UseCase/AddBankUseCase";
 import GetAssociationEvents from "../Application/UseCase/GetAssociationEventsUseCase";
 import GetBankInforomationUseCase from "../Application/UseCase/GetBankInformationUseCase";
+import UpdateBankInformationUseCase from "../Application/UseCase/UpdateBankInformationUseCase";
 
 import VolunteerMySQLRepository from "./Repository/VolunteerRepositoryMySQL"
 import AssociationMySQLRepository from "./Repository/AssociationRepositoryMySQL"
@@ -36,6 +37,7 @@ import UploadProfilePictureController from "./Controller/UploadProfileController
 import AddBankAccountController from "./Controller/AddBankController";
 import GetAssociationEventsController from "./Controller/GetAssociationEventsController";
 import GetBankInformationController from "./Controller/GetBankInformationController";
+import UpdateBankInformationController from "./Controller/UpdateBankInformationController";
 
 export const MySqlVolunteerRepository = new VolunteerMySQLRepository();
 export const VolunteerRepository =  MySqlVolunteerRepository
@@ -55,6 +57,7 @@ export const uploadProfilePictureUseCase = new UploadProfilePictureUseCase(MySql
 export const addBankUseCase = new AddBankUseCase(MySqlAssociationRepository)
 export const getAssociationEvents = new GetAssociationEvents(MySqlAssociationRepository);
 export const getBankInformation = new GetBankInforomationUseCase(MySqlAssociationRepository)
+export const updateBankInformation = new UpdateBankInformationUseCase(MySqlAssociationRepository)
 
 export const registerVolunteerController = new RegisterVolunteerController(registerVolunteerCase);
 export const registerAssociationController = new RegisterAssociationController(registerAssociationCase);
@@ -67,3 +70,4 @@ export const uploadProfilePictureController = new UploadProfilePictureController
 export const addBankAccountController = new AddBankAccountController(addBankUseCase);
 export const getAssociationEventsController = new GetAssociationEventsController(getAssociationEvents);
 export const getBankInformationController = new GetBankInformationController(getBankInformation)
+export const updateBankInformationController = new UpdateBankInformationController(updateBankInformation)

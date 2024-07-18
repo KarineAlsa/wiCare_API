@@ -7,6 +7,37 @@ import { Association } from "../../Domain/Entity/Association";
 import { Bank } from "../../Domain/Entity/Bank";
 
 export default class UserMysqlRepository implements AssociationInterface {
+  async updateBankInformation(id: string, updateFields: any): Promise<User | any> {
+    let sql = "UPDATE Bank SET ";
+    const params: any[] = [];
+    Object.entries(updateFields).forEach(([key, value]) => {
+      sql += `${key} = ?, `;
+      params.push(value);
+    });
+    sql = sql.slice(0, -2);
+    sql += " WHERE association_id = ?";
+    params.push(id);
+    let connection;
+    try {
+      connection = await connection_pool.getConnection();
+      const [result]: any = await query(sql, params, connection);
+
+      if (result && result.affectedRows > 0) {
+        return {
+          updateFields
+        };
+      }
+      return false;
+    } catch (error) {
+      console.error("Error al actualizar información bancaria:", error);
+      return false;
+    } finally {
+      if (connection) {
+        connection.release();
+        console.log("Conexión cerrada");
+      }
+  }
+  }
   async getBankInformation(id: number): Promise<Bank | any> {
     const sql = "SELECT * FROM Bank WHERE association_id = ?";
     const params = [id];

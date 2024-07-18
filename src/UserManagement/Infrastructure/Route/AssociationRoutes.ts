@@ -1,5 +1,5 @@
 import  express  from "express";
-import {   registerAssociationController, getProfileDataAssociationController, addBankAccountController, getAssociationEventsController, getBankInformationController } from "../Dependencies";
+import {   registerAssociationController, getProfileDataAssociationController, addBankAccountController, getAssociationEventsController, getBankInformationController, updateBankInformationController } from "../Dependencies";
 import { VerifyToken } from "../Controller/Middleware/VerifyToken";
 import { checkDataIntegrity } from "../Controller/Middleware/IntegrityMiddleware";
 const associationRouter = express.Router();
@@ -9,6 +9,6 @@ associationRouter.get("/:id",VerifyToken,getProfileDataAssociationController.run
 associationRouter.post("/:id/bank",VerifyToken,addBankAccountController.run.bind(addBankAccountController));
 associationRouter.get("/:id/events",VerifyToken,getAssociationEventsController.run.bind(getAssociationEventsController));
 associationRouter.get("/:id/bank",VerifyToken,getBankInformationController.run.bind(getBankInformationController));
-
+associationRouter.put("/:id/bank",VerifyToken,updateBankInformationController.run.bind(updateBankInformationController));
 
 export default associationRouter;

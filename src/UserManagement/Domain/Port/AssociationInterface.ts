@@ -8,4 +8,5 @@ export default interface AssociationInterface{
     getProfileDataAssociation(id:number):Promise<Association|any>;
     addBankAccount(bank:Bank):Promise<any>;
     getBankInformation(id:number):Promise<Bank|any>;
+    updateBankInformation(id:string,updateFields:any):Promise<User|any>;
 }
