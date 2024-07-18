@@ -8,10 +8,7 @@ export default class AddBankAccountController {
     constructor(readonly useCase:AddBankUseCase){}
 
     async run(request:Request,response:Response) {
-
-        const data = JSON.stringify(request.body);
-        const signature = crypto.createHmac('sha256', process.env.SECRET_KEY).update(data).digest('hex');
-
+   
         const {  name, number, bank} = request.body;
         const association_id = request.params.id;
         
@@ -43,7 +40,7 @@ export default class AddBankAccountController {
             } else {
                 response.status(400).send({
                     
-                    message: "No se pudo crear el usuario asociación",
+                    message: "No se pudo añadir la información de la cuenta bancaria.",
                     success: false,
                 });
             }
