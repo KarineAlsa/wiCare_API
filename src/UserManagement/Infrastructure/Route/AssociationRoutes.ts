@@ -1,5 +1,5 @@
 import  express  from "express";
-import {   registerAssociationController, getProfileDataAssociationController, addBankAccountController, getAssociationEventsController, getBankInformationController, updateBankInformationController, getAssociationDonationsConfirmedController } from "../Dependencies";
+import {   registerAssociationController, getProfileDataAssociationController, addBankAccountController, getAssociationEventsController, getBankInformationController, updateBankInformationController, getAssociationDonationsConfirmedController, getAssociationDonationsPendingsController } from "../Dependencies";
 import { VerifyToken } from "../Controller/Middleware/VerifyToken";
 import { checkDataIntegrity } from "../Controller/Middleware/IntegrityMiddleware";
 const associationRouter = express.Router();
@@ -11,5 +11,5 @@ associationRouter.get("/:id/events",VerifyToken,getAssociationEventsController.r
 associationRouter.get("/:id/bank",VerifyToken,getBankInformationController.run.bind(getBankInformationController));
 associationRouter.put("/:id/bank",VerifyToken,updateBankInformationController.run.bind(updateBankInformationController));
 associationRouter.get("/:id/donations/confirmed",VerifyToken,getAssociationDonationsConfirmedController.run.bind(getAssociationDonationsConfirmedController));
-
+associationRouter.get("/:id/donations/pending",VerifyToken,getAssociationDonationsPendingsController.run.bind(getAssociationDonationsPendingsController));
 export default associationRouter;
