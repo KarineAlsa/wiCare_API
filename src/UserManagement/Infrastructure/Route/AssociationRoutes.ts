@@ -10,6 +10,6 @@ associationRouter.post("/:id/bank",VerifyToken,addBankAccountController.run.bind
 associationRouter.get("/:id/events",VerifyToken,getAssociationEventsController.run.bind(getAssociationEventsController));
 associationRouter.get("/:id/bank",VerifyToken,getBankInformationController.run.bind(getBankInformationController));
 associationRouter.put("/:id/bank",VerifyToken,updateBankInformationController.run.bind(updateBankInformationController));
-associationRouter.get("/:id/donations",VerifyToken,getAssociationDonationsConfirmedController.run.bind(getAssociationDonationsConfirmedController));
+associationRouter.get("/:id/donations/confirmed",VerifyToken,getAssociationDonationsConfirmedController.run.bind(getAssociationDonationsConfirmedController));
 
 export default associationRouter;
