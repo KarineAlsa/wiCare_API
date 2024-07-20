@@ -24,6 +24,7 @@ export const consumeMessages = async () => {
             { name: 'get_volunteer_queue', bindingKey: 'getEventVolunteers', handler: handleGetVolunteers },
             { name: 'get_event_by_id', bindingKey: 'getEventById', handler: handleEventId},
             { name: 'get_all_donations', bindingKey: 'getAllDonations', handler: handleGetAllDonations },
+            { name: 'get_ranking_queue', bindingKey: 'rankingDonations', handler: handleGetRanking }
         ];
         for (const queue of queues) {
             await channel.assertQueue(queue.name, { durable: false });
@@ -116,4 +117,18 @@ const handleGetAllDonations = async (message: any) => {
     }
     
 };
+
+const handleGetRanking = async (message: any) => {
+        
+        try {
+    
+            for (const donation of message) {
+                donation.company = await getProfileDataCompany.run(donation.id_company);
+            }
+            return message;
+        } catch (error:any) {
+            console.error(`Error getting donations:`, error.message);
+        }
+        
+    }
 
