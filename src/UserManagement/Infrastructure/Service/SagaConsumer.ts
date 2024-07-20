@@ -24,7 +24,8 @@ export const consumeMessages = async () => {
             { name: 'get_volunteer_queue', bindingKey: 'getEventVolunteers', handler: handleGetVolunteers },
             { name: 'get_event_by_id', bindingKey: 'getEventById', handler: handleEventId},
             { name: 'get_all_donations', bindingKey: 'getAllDonations', handler: handleGetAllDonations },
-            { name: 'get_ranking_queue', bindingKey: 'rankingDonations', handler: handleGetRanking }
+            { name: 'get_ranking_queue', bindingKey: 'rankingDonations', handler: handleGetRanking },
+            { name: 'get_location_queue', bindingKey: 'get_location', handler: handleGetLocation },
         ];
         for (const queue of queues) {
             await channel.assertQueue(queue.name, { durable: false });
@@ -128,6 +129,24 @@ const handleGetRanking = async (message: any) => {
             return message;
         } catch (error:any) {
             console.error(`Error getting donations:`, error.message);
+        }
+        
+    }
+
+const handleGetLocation = async (message: any) => {
+        
+        try {
+    
+            const profile = await getProfileDataAssociation.run(message.associationId);
+            
+            const messagereturn = {
+                latitude: profile.location.latitude,
+                longitude: profile.location.longitude
+            }
+            
+            return messagereturn;
+        } catch (error:any) {
+            console.error(`Error getting locations:`, error.message);
         }
         
     }
