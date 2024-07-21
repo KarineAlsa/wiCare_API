@@ -18,7 +18,7 @@ export class S3StorageService implements IStorageService{
       await axios.put(s3Url, file, {
         headers: {
           'Content-Type': mimeType,
-          'x-amz-acl': 'public-read', // Asegúrate de que el bucket permita esto
+          'x-amz-acl': 'public-read',
         },
       });
 
