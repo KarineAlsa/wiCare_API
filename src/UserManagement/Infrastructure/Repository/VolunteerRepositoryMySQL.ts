@@ -21,6 +21,7 @@ export default class UserMysqlRepository implements VolunteerInterface {
           email: result[0].email,
           role: result[0].role,
           name: result[0].name,
+          description: result[0].description,
           cellphone: result[0].cellphone,
           genre: result[0].genre,
           occupation: result[0].occupation,
@@ -41,7 +42,7 @@ export default class UserMysqlRepository implements VolunteerInterface {
   async registerVolunteer(user: User, volunteer: Volunteer): Promise<any> {
     const sqlUser = "INSERT INTO User (email, password, role,photo) VALUES (?, ?, ?,?)";
     const sqlContact = "INSERT INTO Contact (name, age, cellphone, latitude,longitude, genre, user_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
-    const sqlVolunteer = "INSERT INTO Volunteer (CURP, occupation, contact_id, postal) VALUES (?, ?, ?, ?)";
+    const sqlVolunteer = "INSERT INTO Volunteer (CURP, occupation, contact_id, postal, description) VALUES (?, ?, ?, ?, ?)";
 
     const hash = bcrypt.hashSync(user.password, 10);
     const paramsUser: any[] = [user.email, hash, user.role, "https://wicare.s3.amazonaws.com/profile/deafult.jpeg"];
@@ -59,7 +60,7 @@ export default class UserMysqlRepository implements VolunteerInterface {
         paramsContact.push(resultUser.insertId);
         const [resultContact]: any = await query(sqlContact, paramsContact,connection);
         if (resultContact && resultContact.insertId) {
-          paramsVolunteer.push(resultContact.insertId, volunteer.postal);
+          paramsVolunteer.push(resultContact.insertId, volunteer.postal, volunteer.description);
           const [resultVolunteer]: any = await query(sqlVolunteer, paramsVolunteer,connection);
           if (resultVolunteer && resultVolunteer.insertId) {
             await connection.commit();
