@@ -8,6 +8,7 @@ export default class ProfileDataCase {
         try {
         const result = await this.associatinoRepository.getProfileDataAssociation(id);
         if(result){
+            result.id = id;
             const bank = await this.associatinoRepository.getBankInformation(id);
             result.bank = bank;
         }

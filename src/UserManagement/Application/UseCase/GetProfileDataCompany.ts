@@ -7,7 +7,10 @@ export default class ProfileDataCompanyCase {
     async run(id:number): Promise<User | any> {
         try {
         const result = await this.companyRepository.getProfileDataCompany(id);
-        
+        if(result){
+            result.id = id;
+            
+        }
         return result;
         } catch {
         return 'Ocurrió un error';
