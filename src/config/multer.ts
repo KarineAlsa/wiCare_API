@@ -1,12 +1,12 @@
-// src/config/multer.ts
+
 import multer from 'multer';
 
-const storage = multer.memoryStorage(); // Guarda los archivos en memoria
+const storage = multer.memoryStorage(); 
 
 const upload = multer({
   storage,
   limits: {
-    fileSize: 5 * 1024 * 1024, // Limitar el tamaño del archivo a 5MB
+    fileSize: 5 * 1024 * 1024, 
   },
   fileFilter: (req, file, cb:any) => {
     if (file.mimetype.startsWith('image/')) {

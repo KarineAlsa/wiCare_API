@@ -7,6 +7,10 @@ export default class ProfileDataCase {
     async run(id:number): Promise<User | any> {
         try {
         const result = await this.associatinoRepository.getProfileDataAssociation(id);
+        if(result){
+            const bank = await this.associatinoRepository.getBankInformation(id);
+            result.bank = bank;
+        }
         
         return result;
         } catch {
