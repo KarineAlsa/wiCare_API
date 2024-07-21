@@ -12,6 +12,7 @@ import GetBankInforomationUseCase from "../Application/UseCase/GetBankInformatio
 import UpdateBankInformationUseCase from "../Application/UseCase/UpdateBankInformationUseCase";
 import GetAssociationDonationsConfirmed from "../Application/UseCase/GetAssociationDonationsConfirmedUseCase";
 import GetAssociationDonationsPendings from "../Application/UseCase/GetAssociationDonationsPendingUseCase";
+import GetVolunteerEventsComing from "../Application/UseCase/GetVolunteerEventsComingUseCase";
 
 import VolunteerMySQLRepository from "./Repository/VolunteerRepositoryMySQL"
 import AssociationMySQLRepository from "./Repository/AssociationRepositoryMySQL"
@@ -42,6 +43,7 @@ import GetBankInformationController from "./Controller/GetBankInformationControl
 import UpdateBankInformationController from "./Controller/UpdateBankInformationController";
 import GetAssociationDonationsConfirmedController from "./Controller/GetAssociationDonationsConfirmedController";
 import GetAssociationDonationsPendingsController from "./Controller/GetAssociationDonationsPendingController";
+import GetVolunteerEventsComingController from "./Controller/GetVolunteerEventsComingController";
 
 export const MySqlVolunteerRepository = new VolunteerMySQLRepository();
 export const VolunteerRepository =  MySqlVolunteerRepository
@@ -64,6 +66,7 @@ export const getBankInformation = new GetBankInforomationUseCase(MySqlAssociatio
 export const updateBankInformation = new UpdateBankInformationUseCase(MySqlAssociationRepository)
 export const getAssociationDonationsConfirmed = new GetAssociationDonationsConfirmed(MySqlAssociationRepository)
 export const getAssociationDonationsPendings = new GetAssociationDonationsPendings(MySqlAssociationRepository)
+export const getVolunteerEventsComing = new GetVolunteerEventsComing(MySqlVolunteerRepository)
 
 export const registerVolunteerController = new RegisterVolunteerController(registerVolunteerCase);
 export const registerAssociationController = new RegisterAssociationController(registerAssociationCase);
@@ -79,3 +82,4 @@ export const getBankInformationController = new GetBankInformationController(get
 export const updateBankInformationController = new UpdateBankInformationController(updateBankInformation)
 export const getAssociationDonationsConfirmedController = new GetAssociationDonationsConfirmedController(getAssociationDonationsConfirmed)
 export const getAssociationDonationsPendingsController = new GetAssociationDonationsPendingsController(getAssociationDonationsPendings)
+export const getVolunteerEventsComingController = new GetVolunteerEventsComingController(getVolunteerEventsComing)
