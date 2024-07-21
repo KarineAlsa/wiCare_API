@@ -96,13 +96,7 @@ export default class RegisterCompanyController {
                 success: false
             });
         }
-        if (!validator.isAlpha(position)){
-            return response.status(400).json({
-                message: "La posición no es válida.",
-                success: false
-            });
-        }
-        
+                
        
         if (!validator.isAlphanumeric(RFC)){
             return response.status(400).json({

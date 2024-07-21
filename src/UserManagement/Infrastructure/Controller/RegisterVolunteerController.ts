@@ -23,12 +23,6 @@ export default class RegisterVolunteerController {
                 success: false
             });
         }
-        if (!validator.isAlpha(name)){
-            return response.status(400).json({
-                message: "El nombre no es válido.",
-                success: false
-            });
-        }
         if (!validator.isEmail(email)){
             return response.status(400).json({
                 message: "El email no es válido.",
@@ -51,12 +45,6 @@ export default class RegisterVolunteerController {
         if (!validator.isPostalCode(postal, "any")){
             return response.status(400).json({
                 message: "El código postal no es válido.",
-                success: false
-            });
-        }
-        if (!validator.isAlpha(occupation)){
-            return response.status(400).json({
-                message: "La ocupación no es válida.",
                 success: false
             });
         }
