@@ -1,5 +1,7 @@
 import express from "express";
 import dotenv from 'dotenv'
+import fs from 'fs';
+import https from 'https';
 import path from 'path';
 import { exec } from 'child_process';
 import volunteerRouter from "./UserManagement/Infrastructure/Route/VolunteerRoutes";
@@ -35,10 +37,14 @@ async function startServer() {
 
     await consumeMessages();
 
-    server.listen(3000, () => {
-        console.log(`Server listening on http://localhost:${server_port}/`);
+    const httpsOptions = {
+        key: fs.readFileSync(path.resolve(__dirname, '/etc/letsencrypt/live/wicare-users.ddns.net/privkey.pem')),
+        cert: fs.readFileSync(path.resolve(__dirname, '/etc/letsencrypt/live/wicare-users.ddns.net/fullchain.pem')),
+    };
+
+    https.createServer(httpsOptions, server).listen(server_port, () => {
+        console.log(`Server listening on https://localhost:${server_port}/`);
     });
-    
 
 }
 
