@@ -94,10 +94,12 @@ export default class UserMysqlRepository implements AssociationInterface {
   async getProfileDataAssociation(id: number): Promise<any> {
     const sql = "SELECT * FROM User u JOIN Contact c ON u.id = c.user_id JOIN Manager m ON c.id = m.contact_id JOIN Association a ON m.institution_id = a.id WHERE u.id = ?";
     const params = [id];
+    
     let connection;
     try {
       connection = await connection_pool.getConnection();
       const [result]: any = await query(sql, params, connection);
+      console.log(result);
       
       if (result && result.length > 0) {
         return {

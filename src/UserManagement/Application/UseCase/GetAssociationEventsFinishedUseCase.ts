@@ -6,6 +6,7 @@ export default class GetAssociationEventsFinished {
 
     async run(id:number): Promise<User | any> {
         try {
+           
         const result = await this.associatinoRepository.getProfileDataAssociation(id);
 
         if(result){

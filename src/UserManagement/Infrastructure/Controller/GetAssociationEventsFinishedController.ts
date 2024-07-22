@@ -8,9 +8,11 @@ export default class LoginController {
     constructor(readonly useCase:GetAssociationEvents){}
 
     async run(request:Request,response:Response) {
+        
         const id = request.params.id;
-        console.log(id)
+        
         try {
+            console.log('Association ID:');
             
             let user = await this.useCase.run(Number(id));
            
