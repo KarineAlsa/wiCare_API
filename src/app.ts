@@ -36,7 +36,7 @@ migrationProcess.on('exit', (code: number) => {
 async function startServer() {
 
     await consumeMessages();
-/*
+
     const httpsOptions = {
         key: fs.readFileSync(path.resolve(__dirname, '/etc/letsencrypt/live/wicare-users.ddns.net/privkey.pem')),
         cert: fs.readFileSync(path.resolve(__dirname, '/etc/letsencrypt/live/wicare-users.ddns.net/fullchain.pem')),
@@ -44,14 +44,7 @@ async function startServer() {
 
     https.createServer(httpsOptions, server).listen(server_port, () => {
         console.log(`Server listening on https://localhost:${server_port}/`);
-    });*/
-
-    //servidor http 
-    server.listen(3000, () => {
-        console.log('Server listening on http://localhost:3000/');
-    }
-    );
-
+    });
 
 }
 
